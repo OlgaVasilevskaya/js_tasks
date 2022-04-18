@@ -313,7 +313,7 @@ console.log(num);
 let str1 = 'Привет,';
 let str2 = 'Мир!';
 
-console.log(str1 + ' ' +str2);
+console.log(str1 + ' ' + str2);
 console.log(`${str1} ${str2}`);
 
 //#5
