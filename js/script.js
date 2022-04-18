@@ -1,9 +1,9 @@
 // Условное ветвление
 //#1
 
-let a = prompt('Введите число 10', '');
+const a = prompt('Введите число 10', '');
 
-if (a == 10) {
+if (a === 10) {
   alert('Верно');
 } else {
   alert('Неверно');
@@ -29,7 +29,7 @@ if (min >= 0 && min <= 14) {
 
 let a = prompt('write a number', '');
 
-if (a == 0) {
+if (a === 0) {
   alert('you are right');
 } else {
   alert('you are NOT right');
@@ -51,7 +51,7 @@ if (a > 0) {
 
 let a = prompt('write a number from 0 to 5', '');
 
-if (a > 0 && a <5) {
+if (a > 0 && a <= 5) {
   alert('right');
 } else {
   alert('wrong');
@@ -77,7 +77,7 @@ let num2 = prompt('write a number', '');
 let a = Number(num1);
 let b = Number(num2);
 
-if (a <= 1 && b >=3) {
+if (a <= 1 && b >= 3) {
   alert(a + b);
 } else {
   alert(a - b);
@@ -234,7 +234,7 @@ if (day >= 1 && day <= 10) {
 
 let month = 8;
 
-if (month == 12 || month <= 2 && month >= 1) {
+if (month == 12 || month === 1 && month === 2) {
   console.log('winter');
 } else if (month >= 3 && month <= 5) {
   console.log('spring');
@@ -248,9 +248,9 @@ if (month == 12 || month <= 2 && month >= 1) {
 
 //#3
 
-let a = 'abcde';
+const a = 'abcde';
 
-if (a[0] == 'a') {
+if (a[0] === 'a') {
   console.log('yes');
 } else {
   console.log('no');
@@ -268,8 +268,8 @@ if (a[0] == 1 || a[0] == 2 || a[0] ==3) {
 
 //#5
 
-let a = '111';
-let sum = Number(a[0]) + Number(a[1]) + Number(a[2]);
+const a = '111';
+const sum = Number(a[0]) + Number(a[1]) + Number(a[2]);
 
 console.log(sum);
 
@@ -314,6 +314,7 @@ let str1 = 'Привет,';
 let str2 = 'Мир!';
 
 console.log(str1 + ' ' +str2);
+console.log(`${str1} ${str2}`);
 
 //#5
 
@@ -332,3 +333,114 @@ console.log(a**2);
 let num = '12345';
 
 console.log(num[0] * num[1] * num[2] * num[3] * num[4]);
+
+// Функции
+
+//#1.1 Напишите функцию, которая принимает 2 числа и возвращает 1, если первое число больше, чем второе; -1, если первое число меньше, чем второе, и 0, если числа равны.
+
+function getNumber(a, b) {
+  if (a > b) {
+    console.log(1);
+  } else if (a < b) {
+    console.log(-1);
+  } else if (a == b) {
+    console.log(0);
+  }
+}
+
+getNumber(10, 10);
+getNumber(1, 10);
+getNumber(10, 1);
+
+//#1.2 Второй способ
+
+const getNum = (a, b) => {
+  return (
+    a > b
+    ? 1
+    : a < b
+    ? -1
+    : 0
+  )
+}
+
+getNum(10, 10);
+getNum(1, 10);
+getNum(10, 1);
+
+
+//#2 Напишите функцию, которая принимает 2 параметра: длину и ширину прямоугольника и вычисляет его площадь. Если в функцию передали 1 параметр, то функция вычисляет площадь квадрата.
+
+function calcArea(a, b = 0) {
+  if (b == 0) { 
+    return a ** 2; 
+  }
+  return a * b;
+  }
+
+  console.log(calcArea(3));
+  console.log(calcArea(2,3));
+
+  //#3 Написать функцию, получающую на вход два числа. Если оба числа чётные - функция возвращает их произведение. Если оба числа нечётные - функция возвращает их сумму. Если одно из чисел чётное, а второе нечётное - функция возвращает это нечётное число.
+
+  function num(a, b) {
+    if (a % 2 && b % 2) {
+      return a + b;
+    } else if (a % 2 || b % 2) {
+      if (a % 2) {
+        return a;
+      }
+      return b;
+    } else {
+      return a * b;
+    }   
+  }
+
+  console.log(num(4, 4));
+  console.log(num(3, 3));
+  console.log(num(2, 3));
+
+  //#4 
+
+  function seguence(start, step) {
+    return function () {
+        start = start || 0;
+        step = step || 1;
+        start += step;
+
+        return start;
+    }
+  };
+  
+  const generator = seguence (10, 3);
+
+  console.log(generator());
+  console.log(generator());
+  console.log(generator());
+
+  // Свойство  arguments функции
+
+  //#1 Напишите функцию, которая принимает произвольное количество аргументов в виде строк и выводит их через пробел с помощью document.write() в тело html-документа. Например, функция  showWords("I've", "been", "learning", "JavaScript", "for", "a", "month") должна вывести фразу "I've been learning JavaScript for a month".
+
+  function showWords() {
+    let sum = '';
+    for (let i = 0; i < arguments.length; i++) {
+      sum += arguments[i] + ' ';
+    }
+    return sum;
+  }
+  
+  console.log(showWords("I've", "been", "learning", "JavaScript", "for", "a", "month")); 
+
+//#2 Напишите функцию, которая принимает произвольное количество аргументов в виде однозначных чисел и возвращает 1 многозначное число. Например, функция с именем complexDigit() при вызове  complexDigit(3,6,7) вернет число 367, а complexDigit(1,9, 4, 8,3) вернет число 19483.
+
+function complexDigit() {
+  let sum = '';
+  for (let i = 0; i < arguments.length; i++) {
+    sum += arguments[i];
+  }
+  return sum;
+}
+
+console.log(complexDigit(3,6,7));
+console.log(complexDigit(1,9,4,8,3));
