@@ -551,3 +551,716 @@ const obj = {
 }
 
 console.log(obj.method1().method2().method3());
+
+
+//задачи learnJS 
+//Типы данных: числа
+
+
+//#1 Создайте скрипт, который запрашивает ввод двух чисел (используйте prompt) и после показывает их сумму.
+
+const a = +prompt("Введите первое число", "");
+
+const b = +prompt("Введите второе число", "");
+
+alert( a + b );
+
+
+//#2 Напишите функцию random(min, max), которая генерирует случайное число с плавающей точкой от min до max (но не включая max).
+
+function random(min, max) {
+  return min + Math.random() * (max - min);
+}
+
+console.log(random(1, 5));
+console.log(random(1, 5));
+console.log(random(1, 5));
+
+
+//#3 Создайте функцию readNumber, которая будет запрашивать ввод числового значения до тех пор, пока посетитель его не введёт.Функция должна возвращать числовое значение.
+
+function readNumber () {
+  let num;
+
+  do {
+    num = prompt("Введите число", 0);
+  } while ( !isFinite(num) );
+
+  if (num === null || num === '') return null;
+
+  return +num;
+}
+
+console.log(`Число: ${readNumber()}`);
+
+
+//Типы данных Строки
+//#1
+
+const str = 'vasya';
+
+const newStr = str[0].toUpperCase() + str.slice(1);
+
+console.log(newStr);
+
+
+//#2
+
+function checkSpam(str) {
+  const lowerStr = str.toLowerCase();
+
+  return lowerStr.includes('viagra') || lowerStr.includes('xxx');
+}
+
+console.log(checkSpam('buy ViAgRA now'));
+console.log(checkSpam('free xxxxx'));
+console.log(checkSpam("innocent rabbit"));
+
+
+//#3
+
+function truncate(str, maxlength) {
+  if (str.length > maxlength) {
+    return str.slice(0, maxlength - 1) + ' ';
+  } else {
+    return str;
+  }
+}
+
+console.log(truncate("Вот, что мне хотелось бы сказать на эту тему:", 30));
+console.log(truncate("Всем привет!", 20));
+
+
+//#4
+
+function extractCurrencyValue(str) {
+  return +str.slice(1);
+}
+
+console.log(extractCurrencyValue("$120") === 120);
+
+
+//Типы данных Массивы 
+//#1
+
+const fruits = ["Яблоки", "Груша", "Апельсин"];
+
+const shoppingCart = fruits;
+
+shoppingCart.push("Банан");
+
+console.log( fruits.length );
+
+
+//#2
+
+const styles = ['джаз', 'блюз'];
+
+console.log(styles);
+
+styles.push('Рок-н-ролл');
+console.log(styles);
+
+styles[Math.floor((styles.length - 1) / 2)] = "Классика";
+console.log(styles);
+
+styles.unshift("Рэп", "Регги");
+console.log(styles);
+
+
+//#3
+
+const arr = ["a", "b"];
+
+arr.push(function() {
+  console.log( this );
+});
+
+arr[2]();
+
+
+//#4
+
+function sumInput() {
+  let numbers = [];
+
+  while (true) {
+    let value = prompt("Введите число", 0);
+
+    if (value === "" || value === null || !isFinite(value)) break;
+
+    numbers.push(+value);
+  }
+
+  let sum = 0;
+  for (let number of numbers) {
+    sum += number;
+  }
+
+  return sum;
+}
+
+alert( sumInput() );
+
+
+//Типы данных Методы массива
+//#1
+
+function camelize(str) {
+
+  return str.split('-').join('');
+}
+
+console.log(camelize("background-color"));
+
+
+//#2
+
+function filterRange(arr, a, b) {
+  return arr.filter(item => (a <= item && item <= b));
+}
+
+const arr = [5, 3, 8, 1];
+const filtered = filterRange(arr, 1, 4);
+
+console.log(filtered); 
+console.log(arr);
+
+
+//#3
+
+const arr = [5, 2, 1, -10, 8];
+
+arr.sort().reverse();
+
+console.log(arr);
+
+
+//#4
+
+const arr = ["HTML", "JavaScript", "CSS"];
+
+function copySorted(arr) {
+  return arr.slice().sort();
+}
+
+const sorted = copySorted(arr);
+
+console.log(sorted);
+console.log(arr);
+
+
+//#5
+
+const vasya = { name: "Вася", age: 25 };
+const petya = { name: "Петя", age: 30 };
+const masha = { name: "Маша", age: 28 };
+
+const users = [ vasya, petya, masha ];
+
+const names = users.map(item => item.name);
+
+console.log(names); 
+
+
+//#6
+
+const vasya = { name: "Вася", surname: "Пупкин", id: 1 };
+const petya = { name: "Петя", surname: "Иванов", id: 2 };
+const masha = { name: "Маша", surname: "Петрова", id: 3 };
+
+const users = [ vasya, petya, masha ];
+
+const usersMapped = users.map(user => ({
+  fullName: `${user.name} ${user.surname}`,
+  id: user.id
+}));
+
+console.log( usersMapped[0].id );
+console.log( usersMapped[0].fullName );
+
+
+//#7
+
+function sortByAge(arr) {
+  arr.sort((a, b) => a.age > b.age 
+  ? 1 
+  : -1);
+}
+
+const vasya = { name: "Вася", age: 25 };
+const petya = { name: "Петя", age: 30 };
+const masha = { name: "Маша", age: 28 };
+
+const arr = [ vasya, petya, masha ];
+
+sortByAge(arr);
+
+console.log(arr[0].name);
+console.log(arr[1].name);
+console.log(arr[2].name); 
+
+
+//#8
+
+function getAverageAge(users) {
+  return users.reduce((prev, user) => prev + user.age, 0) / users.length;
+}
+
+const vasya = { name: "Вася", age: 25 };
+const petya = { name: "Петя", age: 30 };
+const masha = { name: "Маша", age: 29 };
+
+const arr = [ vasya, petya, masha ];
+
+console.log(getAverageAge(arr));
+
+
+//#9
+
+function unique(arr) {
+  let result = [];
+
+  for (let str of arr) {
+    if (!result.includes(str)) {
+      result.push(str);
+    }
+  }
+
+  return result;
+}
+
+const strings = ["кришна", "кришна", "харе", "харе",
+  "харе", "харе", "кришна", "кришна", ":-O"
+];
+
+console.log(unique(strings));
+
+
+
+//Задания на алгоритмы 
+
+//Сделайте функцию, которая параметрами принимает 2 числа. Если эти числа равны - пусть функция вернет true, а если не равны - false.
+
+function num(a, b) {
+  if(a === b) {
+    return true;
+  }
+  
+  return false;
+}
+
+console.log(num(1, 1));
+console.log(num(1, 2));
+
+
+//Сделайте функцию, которая параметрами принимает 2 числа. Если их сумма больше 10 - пусть функция вернет true, а если нет - false.
+
+function num(a, b) {
+  if (a + b > 10) {
+    return true;
+  }
+
+  return false;
+}
+
+console.log(num(1, 10));
+console.log(num(1, 2));
+
+
+// Сделайте функцию, которая параметром принимает число и проверяет - отрицательное оно или нет. Если отрицательное - пусть функция вернет true, а если нет - false.
+
+function num(a) {
+  if (a < 0) {
+    return true;
+  }
+
+  return false;
+}
+
+console.log(num(-1));
+console.log(num(1));
+
+
+//С помощью цикла for сформируйте строку '123456789' и запишите ее в переменную str.
+
+let str = '';
+
+for (let i = 1; i <= 9; i++) {
+  str += i;
+}
+
+console.log(str);
+
+
+//Нарисуйте пирамиду, как показано на рисунке, только у вашей пирамиды должно быть 20 рядов, а не 5:
+
+let result = '';
+
+for (let i = 1; i <= 20; i++) {
+  for (let j = 0; j < i.length; j++) {
+  }
+  result += 'x';
+  console.log(result);
+}
+
+
+//С помощью двух вложенных циклов нарисуйте следующую пирамидку:
+
+let result = '';
+
+for (let i = 1; i <= 9; i++) {
+  for (let j = 0; j < i; j++) {
+  }
+  result += i;
+  console.log(result);
+}
+
+
+//Нарисуйте пирамиду, как показано на рисунке, воспользовавшись циклом for:
+
+let result = '';
+const length = 5;
+
+for (let i = 1; i <= length; i++) {
+  for (let j = 0; j < i; j++) {
+  }
+  result += 'xx';
+  console.log(result);
+}
+
+
+//РЕШИТЬ!!!!!Давайте выведем на экран следующую пирамидку: 111 перенос строки 222 и т.д. до 999
+
+let result = '';
+
+for (let i = 1; i <= 9; i++) {
+  for (let j = 1; j <= 3; j++) {
+    result = result + i;
+    if (result.length === 3){
+      console.log(result);
+    }
+  }
+}
+
+
+//Выведем теперь следующую пирамидку:
+
+let result = '';
+
+for (let i = 1; i <= 9; i++) {
+  for (let j = 0; j < i; j++) {
+  }
+  result += i;
+  console.log(result);
+}
+
+
+//Даны два массива: ['a', 'b', 'c'] и [1, 2, 3]. Объедините их вместе.
+
+const a = ['a', 'b', 'c'];
+const b = [1, 2, 3];
+
+const c = a.concat(b);
+console.log(c);
+
+
+//Дан массив ['a', 'b', 'c']. Добавьте ему в конец элементы 1, 2, 3.
+
+const a = ['a', 'b', 'c'];
+a.push(1, 2, 3);
+
+console.log(a);
+
+
+//Дан массив [1, 2, 3, 4, 5]. С помощью метода splice преобразуйте массив в [1, 4, 5].
+
+const a = [1, 2, 3, 4, 5];
+a.splice(1, 2);
+
+console.log(a);
+
+
+//Дан массив [1, 2, 3, 4, 5]. С помощью метода splice запишите в новый массив элементы [2, 3, 4].
+
+const a = [1, 2, 3, 4, 5];
+a.splice(5, 0, 2, 3, 4);
+
+console.log(a);
+
+
+//Дан массив [1, 2, 3, 4, 5]. С помощью метода splice сделайте из него массив [1, 2, 3, 'a', 'b', 'c', 4, 5].
+
+const a = [1, 2, 3, 4, 5];
+a.splice(3, 0, 'a', 'b', 'c');
+
+console.log(a);
+
+
+// Дан массив [1, 2, 3, 4, 5]. С помощью метода splice сделайте из него массив [1, 'a', 'b', 2, 3, 4, 'c', 5, 'e'].
+
+const a = [1, 2, 3, 4, 5];
+a.splice(1, 0, 'a', 'b');
+a.splice(6, 0, 'c');
+a.splice(8, 0, 'e');
+
+console.log(a);
+
+
+//Дан массив [3, 4, 1, 2, 7]. Отсортируйте его.
+
+const a = [3, 4, 1, 2, 7];
+a.sort();
+
+console.log(a);
+
+
+//Дан объект {js:'test', jq: 'hello', css: 'world'}. Получите массив его ключей.
+
+const a = {js:'test', jq: 'hello', css: 'world'};
+
+for (let key in a){
+  console.log(key);
+}
+
+
+//Дана строка, например, '123456'. Переверните эту строку (сделайте из нее '654321') не используя цикл. 
+
+const str = '123456';
+const a = str.split('').reverse().join('');
+
+console.log(a);
+
+
+//Дана строка. Сделайте заглавным первый символ этой строки не используя цикл. Найдите два решения
+
+const str = 'hello';
+const a = str[0].toUpperCase() + str.substring(1);
+
+console.log(a);
+
+
+//Проверьте, что строка начинается на http://.
+
+const str = 'http://do';
+
+const result = str.startsWith('http://');
+
+console.log(result);
+
+
+//Проверьте, что строка заканчивается на .html
+
+const str = 'do.html';
+
+const result = str.endsWith('.html');
+
+console.log(result);
+
+
+//Дан массив с числами. Проверьте, что в этом массиве есть число 5. Если есть - выведите 'да', а если нет - выведите 'нет'.
+
+const a = [1, 2, 3, 4, 5];
+let result = '';
+
+for (let i = 0; i < a.length; i++) {
+  if (a[i] === 5){
+    result = 'yes';
+  } else {
+    result = 'no';
+  }
+}
+
+console.log(result);
+
+
+//Дано число, например 31. Проверьте, что это число не делится ни на одно другое число кроме себя самого и единицы. То есть в нашем случае нужно проверить, что число 31 не делится на все числа от 2 до 30. Если число не делится - выведите 'false', а если делится - выведите 'true'.
+
+function checkNum (a) {
+  if ((a % 1 === a) && (a % 31 === 1)) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+console.log(checkNum(31));
+
+
+//Дан массив с числами. Проверьте, есть ли в нем два одинаковых числа подряд. Если есть - выведите 'да', а если нет - выведите 'нет'
+
+const arr =[1, 1, 2];
+
+function checkNum () {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === arr[i + 1])
+    return (console.log('yes'));
+    }
+    return (console.log('no'));
+}
+
+checkNum (arr);
+
+
+//Заполните массив следующим образом: в первый элемент запишите '1', во второй '22', в третий '333' и так далее (два цикла) 
+
+let result = '';
+function getArr () {
+  for (let i = 1; i <= 5; i++) {
+    for (let j = 0; j < i; j++) {
+      result += i
+    }
+  }
+  return [result];
+}
+console.log(getArr());
+
+
+//РЕШИТЬ!!!!Fill. Напишите функцию, которая заполняет новый массив предоставленным значением. 
+
+function fill (arraySize, value) {
+  return 
+}
+
+const data = 3;
+const valueToFill = 'a';
+console.log(fill(data, valueToFill)); // ['a', 'a', 'a']
+
+
+//Reverse. Напишите функцию, которая разворачивает массив в обратном порядке. Пожалуйста, не используйте array.reverse(), чтобы сделать задачу более интересной.
+
+function reverse (array) {
+  const newArr = [];
+  
+  for (let i = array.length - 1; i >= 0; i = i - 1) {
+    newArr.push(array[i]);
+  }
+
+  return newArr;
+}
+
+const data = [1, 2, 3];
+console.log(reverse(data)); // [3, 2, 1]
+
+
+//Compact. Напишите функцию, которая очищает массив от нежелательных значений, таких как false, undefined, пустые строки, ноль, null.
+
+const compact = (array) => 
+  array.filter(item => item != undefined && item != 0 && item != null);
+
+const data = [0, 1, false, 2, undefined, '', 3, null];
+console.log(compact(data)) // [1, 2, 3]
+
+
+//РЕШИТЬ!!!!!!!!!From Pairs. Напишите функцию, которая возвращает объект, составленный из значений вложенных массивов. Первое элемент массива - ключ, второй - зачение. (используем метод массива reduce)
+
+const fromPairs = (array) => 
+
+
+const data = [['a', 1], ['b', 2]];
+console.log(fromPairs(data)) // { 'a': 1, 'b': 2 }
+
+
+//Without. Напишите функцию, возвращает новый массив без предоставленных значений. Используйте примитивные типы.
+
+const without = (array, ...args) => {
+  return array.filter(item => !args.includes(item));
+}
+
+const data = [1, 2, 3, 1, 2];
+console.log(without(data, 1, 2)); // [3]
+
+
+//Unique. Напишите функцию, которая убирает повторяющиеся значения.
+
+const unique = (array) => 
+  array.filter((item, index) =>
+    array.indexOf(item) === index);
+
+const data = [1, 2, 1, 2, 3];
+console.log(unique(data)); // [1, 2, 3]
+
+
+//РЕШИТЬ!!!!!!!!!IsEqual. Напишите функцию, которая сравнивает два массива и возвращает true, если они идентичны.
+
+const isEqual = (firstArray, secondArray) => {
+  if(firstArray.length === secondArray.length) {
+    return true;
+  }
+
+  return false;
+}
+
+const arr1 = [1, 2, 3, 4];
+const arr2 = [1, 2, 3, 4];
+const arr3 = [1, 2, 3, 5];
+const arr4 = [1, 2, 3, 4, 5];
+
+console.log(isEqual(arr1, arr2)); // true
+console.log(isEqual(arr1, arr3)); // false
+console.log(isEqual(arr1, arr4)); // false
+
+
+//РЕШИТЬ!!!!!!!!!Chunk. Напишите функцию, которая разделяет массив на части заданного размера.
+
+function chunk (array, size) {
+  
+}
+
+const data = [1, 2, 3, 4, 5, 6, 7];
+console.log(chunk(data, 2)) // [[1, 2], [3, 4], [5, 6], [7]]
+console.log(chunk(data, 3)) // [[1, 2, 3], [4, 5, 6], [7]]
+
+
+//Дан двухмерный массив с числами, например [[1, 2, 3], [4, 5], [6]]. Найдите сумму элементов этого массива. Массив, конечно же, может быть произвольным.
+
+const arr = [[1, 2, 3], [4, 5], [6]];
+
+const result = arr[0].reduce((sum, current) => sum + current, 0) + arr[1].reduce((sum, current) => sum + current, 0) + arr[2].reduce((sum, current) => sum + current, 0);
+
+console.log(result);
+
+
+//Дан массив с числами. Создайте из него новый массив, где останутся лежать только положительные числа. Создайте для этого вспомогательную функцию isPositive(), которая параметром будет принимать число и возвращать true, если число положительное, и false - если отрицательное. 
+
+const arr = [1, 2, 3, 4, -1];
+const newArr = arr.filter(item => item > 0);
+
+console.log(newArr);
+
+
+//Сделайте функцию getDigitsSum (digit - это цифра), которая параметром принимает целое число и возвращает сумму его цифр.
+
+const a = 13;
+const b = String(a);
+
+function getDigitsSum() {
+  return +b[0] + +b[1];
+}
+
+console.log(getDigitsSum(b));
+
+
+//Дана строка. Сделайте заглавным первый символ каждого слова этой строки. Для этого сделайте вспомогательную функцию ucfirst, которая будет получать строку, делать первый символ этой строки заглавным и возвращать обратно строку с заглавной первой буквой.
+
+const str = 'hello hello';
+const result = [];
+
+function ucfirst(a) {
+  return a[0].toUpperCase() + a.substring(1);
+}
+
+const arr = str.split(' ');
+for (let i = 0; i < arr.length; i++) {
+   result.push(ucfirst(arr[i]));
+}
+
+console.log(result);
+
+
+//Дана строка, например, '123456'. Сделайте из нее '214365'.
+
+const str = '123456';
+const result = str[1] + str[0] + str[3] + str[2] + str[5] + str[4];
+
+console.log(result);
