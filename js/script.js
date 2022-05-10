@@ -930,18 +930,18 @@ for (let i = 1; i <= length; i++) {
 }
 
 
-//РЕШИТЬ!!!!!Давайте выведем на экран следующую пирамидку: 111 перенос строки 222 и т.д. до 999
+//Давайте выведем на экран следующую пирамидку: 111 перенос строки 222 и т.д. до 999
 
 let result = '';
 
 for (let i = 1; i <= 9; i++) {
   for (let j = 1; j <= 3; j++) {
-    result = result + i;
-    if (result.length === 3){
-      console.log(result);
-    }
+    result += i; 
   }
+  result += '\n';
 }
+
+console.log(result);
 
 
 //Выведем теперь следующую пирамидку:
@@ -1116,10 +1116,16 @@ function getArr () {
 console.log(getArr());
 
 
-//РЕШИТЬ!!!!Fill. Напишите функцию, которая заполняет новый массив предоставленным значением. 
+//Fill. Напишите функцию, которая заполняет новый массив предоставленным значением. 
 
 function fill (arraySize, value) {
-  return 
+  let arr = [];
+
+  for(let i = 0; i < arraySize; i++) {
+    arr.push(value);
+  }
+
+  return arr;
 }
 
 const data = 3;
@@ -1152,13 +1158,18 @@ const data = [0, 1, false, 2, undefined, '', 3, null];
 console.log(compact(data)) // [1, 2, 3]
 
 
-//РЕШИТЬ!!!!!!!!!From Pairs. Напишите функцию, которая возвращает объект, составленный из значений вложенных массивов. Первое элемент массива - ключ, второй - зачение. (используем метод массива reduce)
+//From Pairs. Напишите функцию, которая возвращает объект, составленный из значений вложенных массивов. Первое элемент массива - ключ, второй - зачение. (используем метод массива reduce)
 
-const fromPairs = (array) => 
-
+function fromPairs (array) {
+  return array.reduce((key, item) => {
+      key[item[0]] = item[1];
+    
+    return key;
+  }, {});
+};
 
 const data = [['a', 1], ['b', 2]];
-console.log(fromPairs(data)) // { 'a': 1, 'b': 2 }
+console.log(fromPairs(data)); // { 'a': 1, 'b': 2 }
 
 
 //Without. Напишите функцию, возвращает новый массив без предоставленных значений. Используйте примитивные типы.
@@ -1181,7 +1192,7 @@ const data = [1, 2, 1, 2, 3];
 console.log(unique(data)); // [1, 2, 3]
 
 
-//РЕШИТЬ!!!!!!!!!IsEqual. Напишите функцию, которая сравнивает два массива и возвращает true, если они идентичны.
+//IsEqual. Напишите функцию, которая сравнивает два массива и возвращает true, если они идентичны.
 
 const isEqual = (firstArray, secondArray) => {
   if(firstArray.length === secondArray.length) {
@@ -1201,10 +1212,19 @@ console.log(isEqual(arr1, arr3)); // false
 console.log(isEqual(arr1, arr4)); // false
 
 
-//РЕШИТЬ!!!!!!!!!Chunk. Напишите функцию, которая разделяет массив на части заданного размера.
+//Chunk. Напишите функцию, которая разделяет массив на части заданного размера.
 
 function chunk (array, size) {
-  
+  const arr =[];
+
+  let i = 0;
+
+  while (i < array.length) {
+    arr.push(array.slice(i, size + i));
+    i = i + size;
+  }
+
+  return arr;
 }
 
 const data = [1, 2, 3, 4, 5, 6, 7];
