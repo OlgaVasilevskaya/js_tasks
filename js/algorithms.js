@@ -332,7 +332,16 @@ console.log(unique(data)); // [1, 2, 3]
 //IsEqual. Напишите функцию, которая сравнивает два массива и возвращает true, если они идентичны.
 
 const isEqual = (firstArray, secondArray) => {
-  //наведи, пжл, на мысль 
+  if (firstArray.length === secondArray.length) {
+    for(let i = 0; i < firstArray.length; i++) {
+      if(firstArray[i] !== secondArray[i]) {
+        return false
+      }
+    }
+    return true;
+  } else {
+    return false;
+  }
 }
 
 const arr1 = [1, 2, 3, 4];
@@ -409,14 +418,247 @@ function ucfirst(str) {
   return str[0].toUpperCase() + str.substring(1);
 }
 
-const arr = str.split(' ').map(item => (ucfirst(item)));
+const arr = str.split(' ').map(ucfirst);
 
 console.log(arr);
 
 
 //Дана строка, например, '123456'. Сделайте из нее '214365'.
 
-const str = '123456';
-const result = str[1] + str[0] + str[3] + str[2] + str[5] + str[4];
+let str = '123456';
 
-console.log(result); //не могу проследить логику перемешивания цифр. Подскажи, пжл :)
+function getNums(str) {
+  let arr = str.split('');
+  let newArr = [];
+
+  for(let i = 1; i < arr.length; i += 2){
+    newArr.push(arr[i] + arr[i - 1]);
+  }
+
+  return newArr.join('');
+}
+
+console.log(getNums(str));
+
+
+//Flatten. Напишите функцию, которая преобразует глубокий массив в одномерный. Пожалуйста, не используйте array.flat(), чтобы сделать задачу интереснее. (рекурсия)
+
+function flatten (array) {
+    return array.reduce((item, value) => item.concat(value), []);
+}  //нужна помощь в решении, не получается достать пятерку
+
+const data = [1, 2, [3, 4, [5]]];
+console.log(flatten(data)); // [1, 2, 3, 4, 5]
+
+
+//Дан массив с числами. Выведите последовательно его элементы используя рекурсию и не используя цикл.
+
+const arr = [1, 2, 3];
+
+function getElements(arr) {
+
+  console.log(arr[0]);
+  arr.splice(0, 1);
+  if (arr.length > 0) {
+    getElements(arr);
+  }
+}
+
+getElements(arr);
+
+//Дано число. Сложите его цифры. Если сумма получилась более 9-ти, опять сложите его цифры. И так, пока сумма не станет однозначным числом (9 и менее).
+
+const num = 19;
+
+function getSum(num) {
+  let sum = 0;
+  let arr = String(num).split('');
+  
+  for(let i = 0; i < arr.length; i++) {
+    sum += Number(arr[i]);
+  }
+
+  if (sum >= 9) {
+    num = sum;
+    getSum(num);
+  } else {
+    console.log('sum', sum);
+  }
+}
+
+getSum(num);
+
+
+//Алгоритмы сортировок:
+
+//1 Сортировка вставками
+//Задание: есть массив [5, 12, 2, 7, 6, 9, 19, 25, 4, 1, 3] отсортировать по возрастанию написав алгоритм сортировки вставками.
+
+const arr = [5, 12, 2, 7, 6, 9, 19, 25, 4, 1, 3];
+
+
+function sortArr(arr) {
+  for(let i = 0; i < arr.length; i++) { //перебираем элементы
+    let current = arr[i]; //записываем в новую переменную индекс текущего элемента
+    let j = i - 1; // и индекс предыдущего элемента
+
+    while(arr[j] > current) { //когда предыдущий элемент больше текущего элемента 
+      arr[j + 1] = arr[j]; //значение следующего становится предыдущим
+      j--; //так как идём справа на лево
+    }
+
+    arr[j + 1] = current; //значение следующего становится текущим
+  }
+
+  return arr;
+}
+
+console.log(sortArr(arr));
+
+
+//2 Сортировка пузырьком
+//Задание: есть массив [5, 12, 2, 7, 6, 9, 19, 25, 4, 1, 3] отсортировать по возрастанию(1) и по убыванию(2) написав алгоритм сортировки пузырьком.
+
+const arr = [5, 12, 2, 7, 6, 9, 19, 25, 4, 1, 3];
+
+function sortArr(arr) {
+  for(let i = 0; i < arr.length; i++) { 
+
+    for(let j = 0; j < arr.length - i; j++) { // последующие эл
+
+      if(arr[j] > arr[j + 1]) { //текущий эл больше следующего
+        let el = arr[j + 1]; //меняем местами
+        arr[j + 1] = arr[j];
+        arr[j] = el;
+      }
+    }
+  }
+  return arr;
+}
+
+console.log(sortArr(arr));
+
+//3 Бинарный поиск
+//Задание: реализовать алгоритм бинарного поиска
+
+const arr = [1, 12, 23, 34, 45];
+
+function searchNum(arr, key) {
+  let start = 0;
+  let end = arr.length - 1;
+  let middle;
+
+  while(start <= end) {
+    middle = Math.floor((end + start) / 2);
+
+    if(arr[middle] === key) {
+      return middle;
+    } else if (arr[middle] > key) {
+      end = middle - 1; //откидываем правую часть
+    } else {
+      start = middle + 1; //откидываем левую часть
+    }
+  }
+}
+
+
+console.log(searchNum(arr, 1));
+console.log(searchNum(arr, 12));
+console.log(searchNum(arr, 23));
+console.log(searchNum(arr, 34));
+console.log(searchNum(arr, 45));
+
+
+//4 Числа Фибоначчи
+
+function fib(n) {
+  if(n <= 1) {
+    return n;
+  } else {
+    return fib(n - 1) + fib(n - 2);
+  }
+}
+
+console.log(fib(3)); // 2
+console.log(fib(7)); // 13
+
+
+function fib(n) {
+  let a = 1;
+  let b = 1;
+  for (let i = 3; i <= n; i++) {
+    let c = a + b;
+    a = b;
+    b = c;
+  }
+
+  return b;
+}
+
+console.log(fib(3)); // 2
+console.log(fib(7)); // 13
+
+
+//5. Напишите функцию range(), принимающую два аргумента: начало и конец диапазона, и возвращающую массив, который содержит все числа из диапазона, включая начальное и конечное. Третий необязательный аргумент функции range() – шаг для построения массива. Убедитесь, что функция range() работает с отрицательным шагом: например, range(5, 2, -1) возвращает [5, 4, 3, 2].
+
+function renge(start, end, step) {
+  let arr = [];
+
+  if (step >= 0) {
+    for (let i = start; i <= end; i += step) {
+      arr.push(i);
+    }
+  } else {
+    for (let i = start; i >= end; i += step) { //не могу понять, почему не работает отрицательный шаг
+      arr.push(i);
+      console.log('reverse', i);
+    }
+  }
+
+  return arr;
+}
+
+console.log(renge(0, 3, 1));
+console.log(renge((5, 2, -1)));
+
+
+//6 Создать функцию createMatrix(), принимающую количество строк и количество столбцов матрицы и возвращающее матрицу (массив массивов), заполненную случайными числами в диапазоне от 0 до 100. 
+
+function createMatrix(row, columb) {
+  let result = [];
+
+  for(let i = 0; i < row; i++) {
+    let arr = [];
+
+    for(let j = 0; j < columb; j++) {
+      let value = Math.floor(Math.random() * 100);
+      arr.push(value);
+    }
+    result.push(arr);
+  }
+
+  return result;
+}
+
+console.log(createMatrix(4, 3));
+
+
+//7 Реализуйте функцию union(), которая объединит уникальные элементы всех массивов, переданных ей.
+
+function union() {
+  let arr = [];
+  let obj = {};
+
+  for(let i = 0; i < arguments.length; i++) {
+    arr = arr.concat(arguments[i]);
+  }
+
+  for (let i = 0; i < arr.length; i++) {
+    let value = arr[i];
+    obj[value] = true;
+  }
+
+  return Object.keys(obj);
+}
+
+console.log(union([1, 2, 2, 3], [101, 2, 1, 10], [2, 1]));
