@@ -587,9 +587,7 @@ function fib(n) {
   let a = 1;
   let b = 1;
   for (let i = 3; i <= n; i++) {
-    let c = a + b;
-    a = b;
-    b = c;
+    [a, b] = [b, a + b];
   }
 
   return b;
@@ -609,7 +607,7 @@ function renge(start, end, step) {
       arr.push(i);
     }
   } else {
-    for (let i = start; i >= end; i += step) { //не могу понять, почему не работает отрицательный шаг
+    for (let i = start; i >= end; i += step) {
       arr.push(i);
       console.log('reverse', i);
     }
@@ -624,13 +622,13 @@ console.log(renge((5, 2, -1)));
 
 //6 Создать функцию createMatrix(), принимающую количество строк и количество столбцов матрицы и возвращающее матрицу (массив массивов), заполненную случайными числами в диапазоне от 0 до 100. 
 
-function createMatrix(row, columb) {
+function createMatrix(row, column) {
   let result = [];
 
   for(let i = 0; i < row; i++) {
     let arr = [];
 
-    for(let j = 0; j < columb; j++) {
+    for(let j = 0; j < column; j++) {
       let value = Math.floor(Math.random() * 100);
       arr.push(value);
     }
@@ -647,18 +645,12 @@ console.log(createMatrix(4, 3));
 
 function union() {
   let arr = [];
-  let obj = {};
 
   for(let i = 0; i < arguments.length; i++) {
     arr = arr.concat(arguments[i]);
   }
 
-  for (let i = 0; i < arr.length; i++) {
-    let value = arr[i];
-    obj[value] = true;
-  }
-
-  return Object.keys(obj);
+  return Array.from(new Set(arr));
 }
 
 console.log(union([1, 2, 2, 3], [101, 2, 1, 10], [2, 1]));
